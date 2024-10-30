@@ -1,0 +1,4 @@
+# AULA 14 - CONEXÃO MYSQL COM PYTHON
+
+# Bibliotecas:
+# pip install sqlalchemy pymysql
