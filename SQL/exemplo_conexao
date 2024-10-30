@@ -2,3 +2,35 @@
 
 # Bibliotecas:
 # pip install sqlalchemy pymysql
+
+from sqlalchemy import create_engine, text
+
+# Variaveis de conexao com o banco
+host = "localhost" # Onde que ele vai rodar. Poderiamos trocar pelo IP que vimos lá no Mysql
+user = "root"
+password = "root" # Todos os valores são por padrão
+database = "bd_produtos"
+
+# Função pra conectar o banco
+def conecta_banco():
+    try:
+        # URL de conexão com o banco, usando SQLAlchemy e PyMySQL
+        engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}/{database}")
+
+        # Estabelece a conexão
+        with engine.connect() as conexao:
+            # Query: "Linguagem SQL para selecionar todos os registros da tabela produtos"
+            query = "SELECT * FROM vendas"
+
+            # "text(query)" transforma a string da query em um objeto compatível com SQLAlchemy
+            # "conexao.execute" executa essa consulta no banco de dados.
+            resultados = conexao.execute(text(query))
+
+            for item in resultados:
+                print(item[0], item[1], item[2])
+
+    except ImportError as e:
+        print(f"Erro: {e}")
+    
+# Chama função que conecta ao banco de dados
+conecta_banco()
